@@ -24,7 +24,7 @@ def format_report(test):
     if "value" in report:
         report["value"] = values_dict.get(report["id"])
     if "values" in report:
-        report["values"] = [format_report(item) for item in report["values"]]  # Сохраняем изменения
+        report["values"] = [format_report(item) for item in report["values"]]
     return report
 
 
