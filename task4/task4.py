@@ -1,17 +1,14 @@
 import sys
 from pathlib import Path
 
-def align_list(spisok, avg, i) -> tuple[list[int], int]:
+def align_list(spisok, avg, i) -> int:
     left = spisok[:avg]
     right = spisok[avg:]
     if len(left) < len(right):
         i += len(left)
-        left = [x+1 for x in left]
     else:
         i += len(right)
-        right = [x-1 for x in right]
-    spisok = left + right
-    return spisok, i
+    return i
 
 
 filename = Path(sys.argv[1]).resolve()
@@ -28,16 +25,16 @@ while len(set(spisok)) > 1:
     if len(spisok) % 2 == 0:
         if len(set(spisok[:avg])) == 1 and len(set(spisok[avg:])) == 1:
             if abs(spisok[avg] - spisok[avg-1]) == 1:
-                spisok, i = align_list(spisok, avg, i)
+                i = align_list(spisok, avg, i)
                 break
     else:
         if len(set(spisok[:avg])) == 1 and len(set(spisok[avg:])) == 1:
             if abs(spisok[avg] - spisok[avg-1]) == 1:
-                spisok, i = align_list(spisok, avg, i)
+                i = align_list(spisok, avg, i)
                 break
         elif len(set(spisok[:avg+1])) == 1 and len(set(spisok[avg+1:])) == 1:
             if abs(spisok[avg+1] - spisok[avg]) == 1:
-                spisok, i = align_list(spisok, avg+1, i)
+                i = align_list(spisok, avg+1, i)
                 break
 
     spisok[0] += 1
